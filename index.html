@@ -12,7 +12,7 @@
             font-family: 'Segoe UI', Arial, sans-serif;
         }
         
-        /* MOBILE FIRST подход - все стили для мобильных */
+        /* MOBILE FIRST - стили для мобильных */
         body {
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100vh;
@@ -50,7 +50,6 @@
             align-items: center;
             gap: 10px;
             width: 100%;
-            order: 1;
         }
         
         .logo {
@@ -73,20 +72,18 @@
             flex-direction: column;
             gap: 10px;
             width: 100%;
-            order: 2;
-            align-items: center;
         }
         
         .menu-link {
             color: #2c3e50;
             text-decoration: none;
             font-size: 16px;
-            padding: 10px;
+            padding: 12px;
             background: #f8f9fa;
             border-radius: 5px;
-            width: 100%;
             text-align: center;
             display: block;
+            border: 1px solid #ddd;
         }
         
         .menu-link:first-child {
@@ -109,22 +106,17 @@
             display: flex;
             flex-direction: column;
         }
-        
-        /* ПОРЯДОК ЭЛЕМЕНТОВ ДЛЯ MOBILE */
-        .section-title {
-            order: 1;
+
+        .links-section {
+            order: 2; /* Список ссылок становится вторым */
         }
         
-        .links-list {
-            order: 2;
-        }
-        
-        table {
-            order: 3;
+        .table-section {
+            order: 1; /* Таблица становится первой */
         }
         
         .form-section {
-            order: 4;
+            order: 3; /* Форма остается третьей */
         }
         
         .section-title {
@@ -306,7 +298,6 @@
             text-align: center;
         }
         
-        /* ===== DESKTOP STYLES (min-width: 768px) ===== */
         @media (min-width: 768px) {
             body {
                 padding: 30px 20px;
@@ -328,8 +319,6 @@
                 flex-direction: row;
                 justify-content: flex-start;
                 width: auto;
-                order: 1;
-                flex: 1;
             }
             
             .logo {
@@ -345,7 +334,6 @@
             .menu {
                 flex-direction: row;
                 width: auto;
-                order: 2;
                 justify-content: flex-end;
                 gap: 25px;
             }
@@ -353,8 +341,8 @@
             .menu-link {
                 background: transparent;
                 padding: 8px 0;
-                width: auto;
                 display: inline;
+                border: none;
             }
             
             hr {
@@ -363,6 +351,20 @@
             
             .content {
                 padding: 0 30px 30px;
+                display: block; /* Возвращаем обычный поток */
+            }
+            
+            /* На планшетах и десктопах возвращаем исходный порядок из HTML */
+            .links-section {
+                order: 0; /* Список ссылок первый (как в HTML потоке) */
+            }
+            
+            .table-section {
+                order: 0; /* Таблица вторая (как в HTML потоке) */
+            }
+            
+            .form-section {
+                order: 0; /* Форма третья (как в HTML потоке) */
             }
             
             .section-title {
@@ -417,14 +419,29 @@
             }
         }
         
+        /* Дополнительные медиа-запросы для очень маленьких экранов */
         @media (max-width: 480px) {
-            .menu {
-                flex-direction: column;
-                gap: 10px;
-            }
-            
             .site-title {
                 font-size: 20px;
+            }
+            
+            .menu-link {
+                padding: 10px;
+                font-size: 14px;
+            }
+        }
+        
+        @media (max-width: 360px) {
+            .header {
+                padding: 15px;
+            }
+            
+            .content {
+                padding: 0 15px 15px;
+            }
+            
+            .section-title {
+                font-size: 18px;
             }
         }
     </style>
@@ -440,7 +457,7 @@
                     <h1 class="site-title">Нэкст ап в сайте</h1>
                 </div>
                 <div class="menu">
-                    <a href="#top" class="menu-link">Ссылка меню </a>
+                    <a href="#top" class="menu-link">Ссылка меню 1</a>
                     <a href="https://mathprofi.ru/du_svodjashiesja_k_odnorodnym.html" class="menu-link" target="_blank">Ссылка 2</a>
                     <a href="https://soundcloud.com/destroylonely" class="menu-link" target="_blank">Ссылка 3</a>
                 </div>
@@ -450,114 +467,121 @@
         <hr>
         
         <div class="content">
-            <h2 class="section-title">Список гиперссылок</h2>
-            
-            <ul class="links-list">
-                <li><a href="http://www.kubsu.ru/" target="_blank" title="Перейти на Example.com">Абсолютная гиперссылка на сайт КубГУ</a></li>
-                <li><a href="https://www.kubsu.ru/" target="_blank" title="Перейти на Example.com">Абсолютная гиперссылка на сайт КубГУ</a></li>
-                <li>
-                    <a href="https://www.kubsu.ru" target="_blank">
-                        <img src="image.jpg" alt="Пример изображения" width="300" height="200">
-                    </a>
-                </li>
-                <li><a href="#forma">Сокращенная ссылка на внутреннюю страницу</a></li>
-                <li><a href="#top">Сокращенная ссылка на главную страницу</a></li>
-                <li><a href="#section">Ссылка на фрагмент текущей страницы</a></li>
-                <li><a href="https://www.kubsu.ru/ru/user/password" target="_blank">Ссылка с тремя параметрами в URL</a></li>
-                <li><a href="https://kubsu.ru/node/44?id=185" target="_blank">Ссылка с параметром id в URL</a></li>
-                <li><a href="https://www.kubsu.ru/ru/studlife" target="_blank">Относительная ссылка на страницу в текущем каталоге</a></li>
-                <li><a href="https://kubsu.ru/ru/education" target="_blank">Относительная ссылка на страницу в текущем каталоге</a></li>
-                <li><a href="https://www.kubsu.ru/ru/about" target="_blank">Относительная ссылка на страницу в каталоге about</a></li>
-                <li><a href="https://www.kubsu.ru/ru" target="_blank">Относительная ссылка на страницу уровнем выше текущего</a></li>
-                <li><a href="https://www.kubsu.ru" target="_blank">Относительная ссылка на страницу двумя уровнями выше</a></li>
-                <li>Если хотите посетить <a href="https://www.kubsu.ru" target="_blank">официальный сайт КубГу</a>, то быстрее переходи по ссылке!</li>
-                <li><a href="https://www.desmos.com/calculator?lang=ru" target="_blank">Ссылка на фрагмент страницы стороннего сайта</a></li>
+            <!-- В HTML потоке: список ссылок идет ПЕРВЫМ -->
+            <div class="links-section">
+                <h2 class="section-title">Список гиперссылок</h2>
                 
-                <li class="image-map-container">
-                    <img src="фото.jpg" width="600" usemap="#image-map" alt="Уменьшенное изображение">
-                    <map name="image-map">
-                        <area target="_blank" alt="Прямоугольная область" title="Прямоугольная область" 
-                              href="https://www.kubsu.ru/ru/sveden" coords="29,36,305,320" shape="rect">
-                        <area target="_blank" alt="Круглая область" title="Круглая область" 
-                              href="https://www.kubsu.ru/ru/node/21" coords="453,176,126" shape="circle">
-                    </map>
-                </li>
+                <ul class="links-list">
+                    <li><a href="http://www.kubsu.ru/" target="_blank" title="Перейти на Example.com">Абсолютная гиперссылка на сайт КубГУ</a></li>
+                    <li><a href="https://www.kubsu.ru/" target="_blank" title="Перейти на Example.com">Абсолютная гиперссылка на сайт КубГУ</a></li>
+                    <li>
+                        <a href="https://www.kubsu.ru" target="_blank">
+                            <img src="image.jpg" alt="Пример изображения" width="300" height="200">
+                        </a>
+                    </li>
+                    <li><a href="#forma">Сокращенная ссылка на внутреннюю страницу</a></li>
+                    <li><a href="#top">Сокращенная ссылка на главную страницу</a></li>
+                    <li><a href="#section">Ссылка на фрагмент текущей страницы</a></li>
+                    <li><a href="https://www.kubsu.ru/ru/user/password" target="_blank">Ссылка с тремя параметрами в URL</a></li>
+                    <li><a href="https://kubsu.ru/node/44?id=185" target="_blank">Ссылка с параметром id в URL</a></li>
+                    <li><a href="https://www.kubsu.ru/ru/studlife" target="_blank">Относительная ссылка на страницу в текущем каталоге</a></li>
+                    <li><a href="https://kubsu.ru/ru/education" target="_blank">Относительная ссылка на страницу в текущем каталоге</a></li>
+                    <li><a href="https://www.kubsu.ru/ru/about" target="_blank">Относительная ссылка на страницу в каталоге about</a></li>
+                    <li><a href="https://www.kubsu.ru/ru" target="_blank">Относительная ссылка на страницу уровнем выше текущего</a></li>
+                    <li><a href="https://www.kubsu.ru" target="_blank">Относительная ссылка на страницу двумя уровнями выше</a></li>
+                    <li>Если хотите посетить <a href="https://www.kubsu.ru" target="_blank">официальный сайт КубГу</a>, то быстрее переходи по ссылке!</li>
+                    <li><a href="https://www.desmos.com/calculator?lang=ru" target="_blank">Ссылка на фрагмент страницы стороннего сайта</a></li>
+                    
+                    <li class="image-map-container">
+                        <img src="фото.jpg" width="600" usemap="#image-map" alt="Уменьшенное изображение">
+                        <map name="image-map">
+                            <area target="_blank" alt="Прямоугольная область" title="Прямоугольная область" 
+                                  href="https://www.kubsu.ru/ru/sveden" coords="29,36,305,320" shape="rect">
+                            <area target="_blank" alt="Круглая область" title="Круглая область" 
+                                  href="https://www.kubsu.ru/ru/node/21" coords="453,176,126" shape="circle">
+                        </map>
+                    </li>
+                    
+                    <li><a href="">Ссылка с пустым href</a></li>
+                    <li><a>Ссылка без href</a></li>
+                    <li><a href="https://site.com" rel="nofollow" target="_blank">Ссылка, по которой запрещен переход поисковикам</a></li>
+                    <li>
+                        <!-- noindex -->
+                        <a href="https://kubsu.ru" rel="noindex" target="_blank">Запрещенная ссылка для индексации поисковиками</a>
+                        <!-- /noindex -->
+                    </li>
+                    <li>
+                        Нумерованный список ссылок
+                        <ol>
+                            <li><a href="https://www.kubsu.ru/ru" title="Главная страница" target="_blank">КубГУ</a></li>
+                            <li><a href="https://www.kubsu.ru/ru/abitur" title="Для поступающих" target="_blank">Абитуриентам</a></li>
+                            <li><a href="https://www.kubsu.ru/ru/education" title="Учебный процесс" target="_blank">Образование</a></li>
+                        </ol>
+                    </li>
+                    <li><a href="ftp://ftp.kubsu.ru/documents/price_list.pdf" target="_blank">Ссылка на файл на сервере FTP с авторизацией</a></li>
+                </ul>
+            </div>
+            
+            <!-- В HTML потоке: таблица идет ВТОРОЙ -->
+            <div class="table-section">
+                <h2 class="section-title">Таблица</h2>
                 
-                <li><a href="">Ссылка с пустым href</a></li>
-                <li><a>Ссылка без href</a></li>
-                <li><a href="https://site.com" rel="nofollow" target="_blank">Ссылка, по которой запрещен переход поисковикам</a></li>
-                <li>
-                    <!-- noindex -->
-                    <a href="https://kubsu.ru" rel="noindex" target="_blank">Запрещенная ссылка для индексации поисковиками</a>
-                    <!-- /noindex -->
-                </li>
-                <li>
-                    Нумерованный список ссылок
-                    <ol>
-                        <li><a href="https://www.kubsu.ru/ru" title="Главная страница" target="_blank">КубГУ</a></li>
-                        <li><a href="https://www.kubsu.ru/ru/abitur" title="Для поступающих" target="_blank">Абитуриентам</a></li>
-                        <li><a href="https://www.kubsu.ru/ru/education" title="Учебный процесс" target="_blank">Образование</a></li>
-                    </ol>
-                </li>
-                <li><a href="ftp://ftp.kubsu.ru/documents/price_list.pdf" target="_blank">Ссылка на файл на сервере FTP с авторизацией</a></li>
-            </ul>
+                <table>
+                    <thead>
+                        <tr>
+                            <th colspan="2">Музыкальные исполнители</th>
+                            <th colspan="2">Дополнительная информация</th>
+                        </tr>
+                        <tr>
+                            <th>Западные исполнители</th>
+                            <th>Ру реп</th>
+                            <th>Жанр</th>
+                            <th>Год начала карьеры</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Destroy lonely</td>
+                            <td>Дабл рр</td>
+                            <td>Трэп</td>
+                            <td>2019</td>
+                        </tr>
+                        <tr>
+                            <td>Yeat</td>
+                            <td rowspan="2">lildrughill</td>
+                            <td>Экспериментальный хип-хоп</td>
+                            <td>2015</td>
+                        </tr>
+                        <tr>
+                            <td>Slimesito</td>
+                            <td>Дрилл</td>
+                            <td>2018</td>
+                        </tr>
+                        <tr>
+                            <td>Rich Amiri</td>
+                            <td>pharaoh</td>
+                            <td colspan="2">Не указано</td>
+                        </tr>
+                        <tr>
+                            <td>Kanye West</td>
+                            <td>Rocket</td>
+                            <td>Рэп</td>
+                            <td>1996</td>
+                        </tr>
+                        <tr>
+                            <td>Travis Scott</td>
+                            <td>Моргенштерн</td>
+                            <td>Трэп</td>
+                            <td>2012</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             
-            <h2 class="section-title">Таблица</h2>
-            
-            <table>
-                <thead>
-                    <tr>
-                        <th colspan="2">Музыкальные исполнители</th>
-                        <th colspan="2">Дополнительная информация</th>
-                    </tr>
-                    <tr>
-                        <th>Западные исполнители</th>
-                        <th>Ру реп</th>
-                        <th>Жанр</th>
-                        <th>Год начала карьеры</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Destroy lonely</td>
-                        <td>Дабл рр</td>
-                        <td>Трэп</td>
-                        <td>2019</td>
-                    </tr>
-                    <tr>
-                        <td>Yeat</td>
-                        <td rowspan="2">lildrughill</td>
-                        <td>Экспериментальный хип-хоп</td>
-                        <td>2015</td>
-                    </tr>
-                    <tr>
-                        <td>Slimesito</td>
-                        <td>Дрилл</td>
-                        <td>2018</td>
-                    </tr>
-                    <tr>
-                        <td>Rich Amiri</td>
-                        <td>pharaoh</td>
-                        <td colspan="2">Не указано</td>
-                    </tr>
-                    <tr>
-                        <td>Kanye West</td>
-                        <td>Rocket</td>
-                        <td>Рэп</td>
-                        <td>1996</td>
-                    </tr>
-                    <tr>
-                        <td>Travis Scott</td>
-                        <td>Моргенштерн</td>
-                        <td>Трэп</td>
-                        <td>2012</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <h2 class="section-title">Форма</h2>
-            
+            <!-- В HTML потоке: форма идет ТРЕТЬЕЙ -->
             <div class="form-section" id="forma">
+                <h2 class="section-title">Форма</h2>
+                
                 <form>
                     <div class="form-group">
                         <label for="fio">ФИО:</label>
